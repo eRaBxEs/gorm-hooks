@@ -26,6 +26,12 @@ func (user *User) BeforeCreate(tx *gorm.DB) (err error) {
 	return nil
 }
 
+func (user *User) AfterCreate(tx *gorm.DB) (err error) {
+	// Send an email on the successful creation of a user
+	fmt.Printf("User ID:%d, Email:%s\n", user.ID, user.Email)
+	return nil
+}
+
 func main() {
 
 	var err error

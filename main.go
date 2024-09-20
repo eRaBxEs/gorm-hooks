@@ -1,6 +1,9 @@
 package main
 
 import (
+	"errors"
+	"fmt"
+
 	"gorm.io/driver/sqlite"
 	"gorm.io/gorm"
 )
@@ -13,6 +16,14 @@ type User struct {
 	gorm.Model
 	Name  string
 	Email string
+}
+
+func (user *User) BeforeCreate(tx *gorm.DB) (err error) {
+	fmt.Println("before!")
+	if user.Name == "" {
+		return errors.New("name cannot be blank")
+	}
+	return nil
 }
 
 func main() {
